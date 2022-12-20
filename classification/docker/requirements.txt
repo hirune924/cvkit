@@ -1,0 +1,10 @@
+numpy
+omegaconf
+pandas
+loguru
+pytorch-lightning
+scikit-learn
+scipy
+albumentations
+torchmetrics
+timm
