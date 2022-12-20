@@ -1,5 +1,8 @@
 # Image Classification
 
+## Get started
+Edit `docker-compose.override.yml` and `config/config.override.yml` 
+
 ## Build docker image
 ```bash
 docker compose build
@@ -20,5 +23,5 @@ format is follow.
 ```bash
 docker compose run --rm \
     -u $(id -u):$(id -g) \
-    main python -m run.train config=config/config.template.yml
+    main python -m run.train config=config/config.override.yml
 ```
