@@ -14,3 +14,6 @@ services:
       - $HOME/.cache:/.cache
     working_dir: /home/$USER
     ipc: host
+    ports:
+      - 8888:8888
+      - 8501:8501

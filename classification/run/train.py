@@ -60,7 +60,7 @@ class CustomDataset(Dataset):
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = self.transform(image=image)
         image = torch.from_numpy(image["image"].transpose(2, 0, 1))
-        label = self.data.loc[idx, "label"]
+        label = self.data.loc[idx, "class_id"]
 
         return image, label
            

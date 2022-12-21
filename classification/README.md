@@ -9,15 +9,22 @@ docker compose build
 ```
 
 ## Prepare dataset
-You should prepare the dataset file as csv file.
+You should prepare the dataset as csv file.
 format is follow.
-|image_path|label|fold
-| ---- | ---- | ---- |
-|/data/001.jpg|19|3
-|/data/002.jpg|37|3
-|/data/003.jpg|85|4
-|/data/004.jpg|15|4
-|/data/005.jpg|49|0
+|image_path|class_id|class|fold
+| ---- | ---- | ---- | ---- |
+|/data/001.jpg|0|dog|3
+|/data/002.jpg|1|cat|3
+|/data/003.jpg|0|dog|4
+|/data/004.jpg|2|human|4
+|/data/005.jpg|1|cat|0
+
+## Visualize Dataset
+```bash
+docker compose run --rm \
+    --service-ports \
+    main streamlit run run/inspect_dataset.py /data/train.csv
+```
 
 ## train
 ```bash
@@ -25,3 +32,18 @@ docker compose run --rm \
     -u $(id -u):$(id -g) \
     main python -m run.train config=config/config.override.yml
 ```
+
+## jupyter notebook
+```bash
+docker compose run --rm \
+    --service-ports \
+    main jupyter lab --ip=0.0.0.0 --allow-root --no-browser
+```
+
+## TODO
+* inference
+* dataset inspect
+* train cv script
+* cv result inspect
+* inference inspect
+* type hint

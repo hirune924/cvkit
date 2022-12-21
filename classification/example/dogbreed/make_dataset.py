@@ -35,16 +35,17 @@ def main(args):
     df = pd.read_csv(data_dir / 'labels.csv')
     df['image_path'] = data_dir / 'train' 
     df['image_path'] = df['image_path'] / (df['id'] + '.jpg')
-    df['label'] = df['breed'].map(dict(zip(CLASSES, list(range(len(CLASSES))))))
+    df['class_id'] = df['breed'].map(dict(zip(CLASSES, list(range(len(CLASSES))))))
+    df['class'] = df['breed']
 
     logger.info('CV split')
     kf = StratifiedKFold(n_splits=args.num_fold, shuffle=True, random_state=args.seed)
-    for fold, (train_index, val_index) in enumerate(kf.split(df.values, df['label'])):
+    for fold, (train_index, val_index) in enumerate(kf.split(df.values, df['class_id'])):
         df.loc[val_index, "fold"] = int(fold)
     df["fold"] = df["fold"].astype(int)
 
     logger.info('Save')
-    df = df[['image_path', 'label', 'fold']]
+    df = df[['image_path', 'class_id', 'class', 'fold']]
     df.to_csv(args.output_path, index=False)
     
     logger.info('\n'+pformat(df))

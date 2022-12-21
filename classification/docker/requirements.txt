@@ -8,3 +8,7 @@ scipy
 albumentations
 torchmetrics
 timm
+matplotlib
+jupyterlab
+streamlit
+plotly
