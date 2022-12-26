@@ -41,9 +41,8 @@ docker compose run --rm \
 ```
 
 ## TODO
-* inference
 * dataset inspect
+* inference
 * train cv script
-* cv result inspect
-* inference inspect
+* cv result inference inspect
 * type hint

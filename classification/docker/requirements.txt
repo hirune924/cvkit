@@ -12,3 +12,5 @@ matplotlib
 jupyterlab
 streamlit
 plotly
+streamlit-pandas-profiling
+ipywidgets
