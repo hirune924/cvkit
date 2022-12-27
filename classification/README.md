@@ -33,6 +33,13 @@ docker compose run --rm \
     main python -m run.train config=config/config.override.yml
 ```
 
+## predict
+```bash
+docker compose run --rm \
+    -u $(id -u):$(id -g) \
+    main python -m run.predict /output/tf_efficientnet_b1_ns/config.yml /output/tf_efficientnet_b1_ns/ckpt/last.ckpt /output/preds.csv /data/test/*.jpg
+```
+
 ## jupyter notebook
 ```bash
 docker compose run --rm \

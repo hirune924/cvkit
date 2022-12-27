@@ -26,6 +26,7 @@ import glob
 from sklearn.metrics import roc_auc_score
 from src.utils import load_pytorch_model, load_conf
 from src.augment import build_augment
+from src.model import build_model
 
 
 conf_dict = {'batch_size': 32, 
@@ -110,7 +111,7 @@ class LitSystem(pl.LightningModule):
         super().__init__()
         #self.conf = conf
         self.save_hyperparameters(conf)
-        self.model = timm.create_model(model_name=self.hparams.model_name, num_classes=len(self.hparams.classes), pretrained=True, in_chans=3)
+        self.model = build_model(conf)
         if self.hparams.ckpt_pth is not None:
             self.model = load_pytorch_model(self.hparams.model_ckpt, self.model)
         self.criteria = torch.nn.CrossEntropyLoss()
