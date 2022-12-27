@@ -27,6 +27,14 @@ docker compose -f docker-compose.yml -f example/dogbreed/docker-compose.override
     main python -m run.train config=example/dogbreed/config.override.yml
 ```
 
+## predict
+```bash
+docker compose -f docker-compose.yml -f example/dogbreed/docker-compose.override.yml \
+    run --rm \
+    -u $(id -u):$(id -g) \
+    main python -m run.predict /output/tf_efficientnet_b1_ns/config.yml /output/tf_efficientnet_b1_ns/ckpt/last.ckpt /output/preds.csv /data/test/*.jpg
+```
+
 ## exec style snippets
 ```bash
 docker compose -f docker-compose.yml -f example/dogbreed/docker-compose.override.yml up -d

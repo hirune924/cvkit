@@ -37,7 +37,7 @@ docker compose run --rm \
 ```bash
 docker compose run --rm \
     -u $(id -u):$(id -g) \
-    main python -m run.predict /output/tf_efficientnet_b1_ns/config.yml /output/tf_efficientnet_b1_ns/ckpt/last.ckpt /output/preds.csv /data/test/*.jpg
+    main python -m run.predict /output/config.yml /output/ckpt/last.ckpt /output/preds.csv /data/test/*.jpg
 ```
 
 ## jupyter notebook
