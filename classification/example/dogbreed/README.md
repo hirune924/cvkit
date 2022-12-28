@@ -12,6 +12,7 @@ docker compose -f docker-compose.yml -f example/dogbreed/docker-compose.override
 kaggle competitions download -c dog-breed-identification
 unzip dog-breed-identification.zip
 ```
+
 ## Preprpcess dataset
 ```bash
 docker compose -f docker-compose.yml -f example/dogbreed/docker-compose.override.yml \
@@ -19,12 +20,29 @@ docker compose -f docker-compose.yml -f example/dogbreed/docker-compose.override
     -u $(id -u):$(id -g) \
     main python -m example.dogbreed.make_dataset /data /data/train.csv
 ```
+
 ## train
 ```bash
 docker compose -f docker-compose.yml -f example/dogbreed/docker-compose.override.yml \
     run --rm \
     -u $(id -u):$(id -g) \
     main python -m run.train config=example/dogbreed/config.override.yml
+```
+
+## evaluate
+```bash
+docker compose -f docker-compose.yml -f example/dogbreed/docker-compose.override.yml \
+    run --rm \
+    -u $(id -u):$(id -g) \
+    main python -m run.evaluate /output/tf_efficientnet_b1_ns/config.yml /output/tf_efficientnet_b1_ns/ckpt/last.ckpt /output/eval.csv
+```
+
+## exec cross validation
+```bash
+docker compose -f docker-compose.yml -f example/dogbreed/docker-compose.override.yml \
+    run --rm \
+    -u $(id -u):$(id -g) \
+    main bash script/run_cv.sh /output/cv example/dogbreed/config.override.yml
 ```
 
 ## predict

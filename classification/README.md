@@ -33,6 +33,27 @@ docker compose run --rm \
     main python -m run.train config=config/config.override.yml
 ```
 
+## evaluate
+```bash
+docker compose run --rm \
+    -u $(id -u):$(id -g) \
+    main python -m run.evaluate /output/config.yml /output/ckpt/last.ckpt /output/fold_0.csv
+```
+
+## exec cross validation
+```bash
+docker compose run --rm \
+    -u $(id -u):$(id -g) \
+    main bash script/run_cv.sh /output/cv config/config.override.yml
+```
+
+## Inspect Evaluate result
+```bash
+docker compose run --rm \
+    --service-ports \
+    main streamlit run run/inspect_evaluate.py /output/**/*.csv
+```
+
 ## predict
 ```bash
 docker compose run --rm \
@@ -48,8 +69,6 @@ docker compose run --rm \
 ```
 
 ## TODO
-* dataset inspect
-* inference
 * train cv script
 * cv result inference inspect
 * type hint
