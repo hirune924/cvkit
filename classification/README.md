@@ -69,6 +69,4 @@ docker compose run --rm \
 ```
 
 ## TODO
-* train cv script
-* cv result inference inspect
-* type hint
+* code cleaning
