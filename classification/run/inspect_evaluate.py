@@ -18,7 +18,10 @@ def main(args):
     mode = st.selectbox('Mode select', ['Show dataframe', 'Show metrics', 'Confusion matrix', 'Show images', 'Show hard samples'])
     if mode == 'Show dataframe':
         st.write(df)
-        fig = px.bar(df["class"].value_counts())
+        fig = px.bar(df["class"].value_counts(),title='Number of grandtruth classes')
+        st.plotly_chart(fig, use_container_width=False, sharing="streamlit", theme="streamlit")
+
+        fig = px.bar(df["predict"].apply(lambda x: classes[x]).value_counts(),title='Number of predicted classes')
         st.plotly_chart(fig, use_container_width=False, sharing="streamlit", theme="streamlit")
         
     elif mode == 'Show metrics':
@@ -36,10 +39,10 @@ def main(args):
     elif mode == 'Show hard samples':
         conf_cols = [c for c in df.columns.values if 'confidence' in c ]
         hard_df = df[df['class_id']!=df['predict']] 
-        target_class = st.selectbox('select class', classes)
+        target_class = st.selectbox('select class', classes, key=30)
         hard_df = hard_df[hard_df['class']==target_class]
         hard_df = hard_df.sample(n=min(10, len(hard_df)), frac=None, replace=False)
-        if st.button("shuffle", key=0):
+        if st.button("shuffle", key=31):
             hard_df = hard_df.sample(n=min(10, len(hard_df)), frac=None, replace=False)
 
         st.markdown("""---""")
@@ -64,12 +67,12 @@ def main(args):
         class_list = sorted(list(df['class'].unique()))
         cols = st.columns(2)
         with cols[0]:
-            target_class = st.selectbox('select class', class_list)
+            target_class = st.selectbox('select class', class_list, key=40)
 
         target_df = df[df['class']==target_class]
         target_df = target_df.sample(n=min(100, len(target_df)), frac=None, replace=False)
         with cols[1]:
-            if st.button("shuffle", key=0):
+            if st.button("shuffle", key=41):
                 target_df = target_df.sample(n=min(100, len(target_df)), frac=None, replace=False)
 
         st.image(list(target_df['image_path'].values), width=128, use_column_width='never')
