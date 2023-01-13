@@ -40,12 +40,26 @@ def main(args):
     mode = st.selectbox('Mode select', ['Show dataframe', 'Show images', 'meta profile'])
     df = load_csv(args.data_file)
     if mode == 'Show dataframe':
+        cols = st.columns(2)
+        num_labeled = df['labeled'].sum()
+        num_unlabeled = len(df) - num_labeled
+        num_labeled_unique_class = len(df[df['labeled']==1]['class'].unique())
+        num_labeled_unique_class_fold = \
+            [len(df[(df['labeled']==1)&(df['fold']==i)]['class'].unique()) for i in df['fold'].unique()]
+        with cols[0]:
+            st.metric('Number of labeled', f'{num_labeled} ')
+            st.metric('Number unique classes in labeled', f'{num_labeled_unique_class} ')
+        with cols[1]:
+            st.metric('Number of Unlabeled', f'{num_unlabeled} ')
         st.write(df)
-        fig = px.bar(df["class"].value_counts())
+        fig = px.bar(df["class"].value_counts(), title='Number of images per classes')
         st.plotly_chart(fig, use_container_width=False, sharing="streamlit", theme="streamlit")
-        
+
+        fig = px.bar(x=range(len(num_labeled_unique_class_fold)), y=num_labeled_unique_class_fold, title='Number of classes per fold')
+        st.plotly_chart(fig, use_container_width=False, sharing="streamlit", theme="streamlit")
+
     elif mode == 'Show images':
-        class_list = sorted(list(df['class'].unique()))
+        class_list = sorted(list(df['class'].dropna().unique()))
         cols = st.columns(2)
         with cols[0]:
             target_class = st.selectbox('select class', class_list)

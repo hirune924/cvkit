@@ -25,13 +25,15 @@ def main(args):
         st.plotly_chart(fig, use_container_width=False, sharing="streamlit", theme="streamlit")
         
     elif mode == 'Show metrics':
-        report = metrics.classification_report(df['class_id'], df['predict'], target_names=classes, output_dict=True)
+        val_df = df[df['labeled']==1]
+        report = metrics.classification_report(val_df['class_id'], val_df['predict'], target_names=classes, output_dict=True)
         accuracy = report.pop('accuracy')
         st.metric('Accuracy', f'{accuracy*100:.2f} %')
         st.table(pd.DataFrame(report).transpose().style.background_gradient(axis=0))
 
     elif mode == 'Confusion matrix':
-        cm = metrics.confusion_matrix(df['class_id'], df['predict'])
+        val_df = df[df['labeled']==1]
+        cm = metrics.confusion_matrix(val_df['class_id'], val_df['predict'])
         cm = pd.DataFrame(cm, index=classes, columns=classes)
         fig = px.imshow(cm, text_auto=True, labels=dict(x="Predict", y="Grand truth"), width=800, height=800)
         st.plotly_chart(fig, use_container_width=True, sharing="streamlit", theme="streamlit")
@@ -64,7 +66,7 @@ def main(args):
             st.markdown("""---""")
 
     elif mode == 'Show images':
-        class_list = sorted(list(df['class'].unique()))
+        class_list = sorted(list(df['class'].dropna().unique()))
         cols = st.columns(2)
         with cols[0]:
             target_class = st.selectbox('select class', class_list, key=40)
