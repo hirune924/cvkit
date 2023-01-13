@@ -1,5 +1,16 @@
 # Image Classification
 
+## Operation flow
+```mermaid
+flowchart LR;
+    subgraph main flow
+    A-->C[train];
+    C-->D[eval];
+    D-->E[predict];
+    end
+    A[prepare dataset]-.->A1[inspect dataset];
+    D-.->D1[inspect eval]
+```
 ## Get started
 Edit `docker-compose.override.yml` and `config/config.override.yml` 
 

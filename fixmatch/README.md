@@ -1,5 +1,18 @@
 # Fixmatch(semi-supervised image classification)
+This is an unofficial implementation and differs from the original.
 
+[FixMatch: Simplifying Semi-Supervised Learning with Consistency and Confidence](https://arxiv.org/abs/2001.07685)
+## Operation flow
+```mermaid
+flowchart LR;
+    subgraph main flow
+    A-->C[train fixmatch];
+    C-->D[eval];
+    D-->E[predict];
+    end
+    A[prepare dataset]-.->A1[inspect dataset];
+    D-.->D1[inspect eval]
+```
 ## Get started
 Edit `docker-compose.override.yml` and `config/config.override.yml` 
 
