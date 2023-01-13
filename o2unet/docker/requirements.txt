@@ -1,0 +1,16 @@
+numpy
+omegaconf
+pandas
+loguru
+pytorch-lightning
+scikit-learn
+scipy
+albumentations
+torchmetrics
+timm
+matplotlib
+jupyterlab
+streamlit
+plotly
+streamlit-pandas-profiling
+ipywidgets
