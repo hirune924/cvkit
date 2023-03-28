@@ -23,7 +23,7 @@ docker compose build
 You should prepare the dataset as csv file.
 format is follow.
 |image_path|mask_path|fold
-| ---- | ---- | ---- | ---- |
+| ---- | ---- | ---- |
 |/data/001.jpg|/data/001_mask.npy|3
 |/data/002.jpg|/data/002_mask.npy|3
 |/data/003.jpg|/data/003_mask.npy|4
