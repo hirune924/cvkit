@@ -1,0 +1,3 @@
+classes: ['dog', 'cat', 'human']
+data_path: /data/train.csv
+output_dir: /output/${model_name}
