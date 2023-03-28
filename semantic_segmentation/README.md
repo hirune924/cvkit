@@ -1,4 +1,4 @@
-# Image Classification
+# Image Semantic Segmentation
 
 ## Operation flow
 ```mermaid
