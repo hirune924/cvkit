@@ -1,0 +1,24 @@
+version: "3"
+services:
+  main:
+    shm_size: '16gb'
+    build: docker/
+    #runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    container_name: cvkit
+    tty: true
+    volumes:
+      - $PWD:/home/$USER
+      - $HOME/.cache:/.cache
+    working_dir: /home/$USER
+    ipc: host
+    ports:
+      - 8888:8888
+      - 8501:8501
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
